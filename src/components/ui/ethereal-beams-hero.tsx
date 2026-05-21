@@ -9,6 +9,7 @@ import { PerspectiveCamera } from "@react-three/drei"
 import { degToRad } from "three/src/math/MathUtils.js"
 import { ArrowRight, Star } from "lucide-react"
 import { motion } from "framer-motion"
+import { useLenis } from "lenis/react"
 
 // ============================================================================
 // BEAMS COMPONENT (3D Background)
@@ -454,6 +455,20 @@ const Button = ({ variant = "default", size = "sm", className = "", children, ..
 // ============================================================================
 
 export default function EtherealBeamsHero() {
+  const lenis = useLenis()
+
+  const navLinks: { label: string; target: string | number }[] = [
+    { label: "Home",       target: 0 },
+    { label: "Services",   target: "#services" },
+    { label: "Portfolio",  target: "#portfolio" },
+    { label: "Goal",       target: "#goal" },
+    { label: "Contact Me", target: "#contact" },
+  ]
+
+  const scrollTo = (target: string | number) => {
+    lenis?.scrollTo(target as string, { duration: 1.2 })
+  }
+
   return (
     <div className="relative min-h-screen w-full bg-black">
       {/* Beams Background */}
@@ -479,22 +494,30 @@ export default function EtherealBeamsHero() {
       >
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
-            <div className="flex items-center">
-              <span className="text-xl font-bold text-white tracking-tight">CMPL.</span>
-            </div>
+            {/* Logo — click to go to top */}
+            <button
+              onClick={() => scrollTo(0)}
+              className="text-xl font-bold text-white tracking-tight hover:text-white/80 transition-colors"
+            >
+              CMPL.
+            </button>
+
+            {/* Nav links */}
             <div className="hidden md:flex items-center space-x-1 rounded-full bg-white/5 backdrop-blur-xl border border-white/10 p-1">
-              {["Home", "Services", "Portfolio", "Goal", "Contact Me"].map((item) => (
-                <a
-                  key={item}
-                  href="#"
+              {navLinks.map(({ label, target }) => (
+                <button
+                  key={label}
+                  onClick={() => scrollTo(target)}
                   className="rounded-full px-4 py-2 text-sm font-medium text-white/90 transition-all hover:bg-white/10 hover:text-white"
                 >
-                  {item}
-                </a>
+                  {label}
+                </button>
               ))}
             </div>
+
+            {/* Hire Me */}
             <div className="flex items-center">
-              <Button size="sm">
+              <Button size="sm" onClick={() => scrollTo("#contact")}>
                 Hire Me
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
@@ -551,11 +574,20 @@ export default function EtherealBeamsHero() {
               transition={{ duration: 0.6, delay: 0.9 }}
               className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
             >
-              <Button size="lg" className="shadow-2xl shadow-white/25 font-semibold">
+              <Button
+                size="lg"
+                className="shadow-2xl shadow-white/25 font-semibold"
+                onClick={() => scrollTo("#portfolio")}
+              >
                 View Portfolio
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-              <Button variant="outline" size="lg" className="font-semibold bg-transparent">
+              <Button
+                variant="outline"
+                size="lg"
+                className="font-semibold bg-transparent"
+                onClick={() => scrollTo("#contact")}
+              >
                 Get in Touch
               </Button>
             </motion.div>
