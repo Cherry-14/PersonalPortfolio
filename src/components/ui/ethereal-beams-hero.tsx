@@ -1,6 +1,6 @@
 "use client"
 
-import type React from "react"
+import React from "react"
 
 import { forwardRef, useImperativeHandle, useEffect, useRef, useMemo, type FC, type ReactNode } from "react"
 import * as THREE from "three"
@@ -456,6 +456,7 @@ const Button = ({ variant = "default", size = "sm", className = "", children, ..
 
 export default function EtherealBeamsHero() {
   const lenis = useLenis()
+  const [scrolled, setScrolled] = React.useState(false)
 
   const navLinks: { label: string; target: string | number }[] = [
     { label: "Home",       target: 0 },
@@ -468,6 +469,11 @@ export default function EtherealBeamsHero() {
   const scrollTo = (target: string | number) => {
     lenis?.scrollTo(target as string, { duration: 1.2 })
   }
+
+  // Track scroll position to toggle sticky background
+  useLenis(({ scroll }) => {
+    setScrolled(scroll > 40)
+  })
 
   return (
     <div className="relative min-h-screen w-full bg-black">
@@ -485,19 +491,23 @@ export default function EtherealBeamsHero() {
         />
       </div>
 
-      {/* Glassmorphic Navbar */}
+      {/* ── Sticky Navbar ── */}
       <motion.nav
         initial={{ opacity: 0, y: -24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: "easeOut" }}
-        className="relative z-20 w-full"
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          scrolled
+            ? "bg-black/80 backdrop-blur-xl border-b border-white/10 shadow-xl shadow-black/40"
+            : "bg-transparent"
+        }`}
       >
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
-            {/* Logo — click to go to top */}
+            {/* Logo */}
             <button
               onClick={() => scrollTo(0)}
-              className="text-xl font-bold text-white tracking-tight hover:text-white/80 transition-colors"
+              className="text-xl font-bold text-white tracking-tight hover:text-white/70 transition-colors"
             >
               CMPL.
             </button>
@@ -527,7 +537,7 @@ export default function EtherealBeamsHero() {
       </motion.nav>
 
       {/* Hero Content */}
-      <div className="relative z-10 flex min-h-[calc(100vh-4rem)] items-center">
+      <div className="relative z-10 flex min-h-screen items-center pt-16">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-4xl text-center">
 
