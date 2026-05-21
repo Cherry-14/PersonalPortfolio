@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "PowerShell(npm install -g uipro-cli 2>&1)",
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\User\\\\OneDrive\\\\Desktop\\\\\" | Where-Object { $_.Extension -match \"\\\\.\\(jpg|jpeg|png|webp\\)$\" })",
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\User\\\\Downloads\\\\\" | Where-Object { $_.Extension -match \"\\\\.\\(jpg|jpeg|png|webp\\)$\" } | Select-Object -First 20)",
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\User\\\\Downloads\\\\\" | Where-Object { $_.Extension -match \"\\\\.\\(jpg|jpeg|png|webp\\)$\" -and \\($_.Name -match \"cherry|profile|photo|headshot|portrait|cmpl|about\"\\) } | Select-Object Name, LastWriteTime)",
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\User\\\\Downloads\\\\\" | Where-Object { $_.Extension -match \"\\\\.\\(jpg|jpeg|png|webp\\)$\" } | Sort-Object LastWriteTime -Descending | Select-Object -First 10 Name, LastWriteTime, Length)",
+      "PowerShell(Copy-Item \"C:\\\\Users\\\\User\\\\Downloads\\\\e4341f59-3151-438e-ace2-578e5a5e9515 1.png\" \"C:\\\\Users\\\\User\\\\OneDrive\\\\Desktop\\\\cherry-portfolio\\\\public\\\\cherry2.png\")"
+    ]
+  }
+}
