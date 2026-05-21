@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import { Brush, Globe, Package, Star } from "lucide-react"
-import { motion } from "framer-motion"
+import { motion, type Variants } from "framer-motion"
 
 const specialties = [
   { icon: <Globe className="h-4 w-4" />, label: "Web & UI/UX Design" },
@@ -17,23 +17,23 @@ const stats = [
   { value: "98%", label: "Positive Feedback" },
 ]
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 28 },
-  visible: (delay = 0) => ({
+  visible: (delay: number = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.65, delay, ease: "easeOut" },
+    transition: { duration: 0.65, delay, ease: "easeOut" as const },
   }),
 }
 
-const slideLeft = {
+const slideLeft: Variants = {
   hidden: { opacity: 0, x: -40 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" } },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" as const } },
 }
 
-const slideRight = {
+const slideRight: Variants = {
   hidden: { opacity: 0, x: 40 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" } },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" as const } },
 }
 
 export default function AboutSection() {
